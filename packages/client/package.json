@@ -1,0 +1,12 @@
+{
+    "name": "@tk-ch/simple-room-client",
+    "version": "1.0.0",
+    "main": "dist/clientSocketManager.js",
+    "types": "dist/clientSocketManager.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "socket.io-client": "^4.8.1"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "name": "@tk-ch/simple-room-common",
+    "version": "1.0.0",
+    "main": "dist/models.js",
+    "types": "dist/models.d.ts",
+    "scripts": {
+        "build": "tsc"
+    }
+}
