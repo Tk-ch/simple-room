@@ -74,7 +74,7 @@ export default function Home() {
                 <>
                     Connected!
                     <br />
-                    <button onClick={socketManager.current.ready}>
+                    <button onClick={() => socketManager.current.ready()}>
                         {userReady ? "Not ready" : "Ready"}
                     </button>
                     {users}
