@@ -1,5 +1,5 @@
 {
-    "name": "@tk-ch/simple-room",
+    "name": "@tk-ch/simple-room-server",
     "version": "1.0.0",
     "main": "dist/index.js",
     "types": "src/index.ts",

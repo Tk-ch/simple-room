@@ -1,4 +1,6 @@
 {
+    "name": "simple-room",
+    "version": "1.0.0",
     "workspaces": [
         "packages/server",
         "packages/client",
