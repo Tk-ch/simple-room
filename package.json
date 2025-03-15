@@ -11,9 +11,10 @@
         "dev": "npm run build && npm run dev -w=dev"
     },
     "devDependencies": {
-        "nodemon": "^3.1.9"
-    },
-    "dependencies": {
+        "nodemon": "^3.1.9",
         "tsx": "^4.19.3"
+    },
+    "publishConfig": {
+        "directory": "packages"
     }
 }
