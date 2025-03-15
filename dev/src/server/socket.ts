@@ -1,3 +1,3 @@
-import { SocketManager } from "@tk-ch/simple-room";
+import { LobbyManager } from "@tk-ch/simple-room";
 
-new SocketManager();
+new LobbyManager();

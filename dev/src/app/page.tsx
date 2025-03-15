@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { ClientSocketManager } from "@tk-ch/simple-room-client";
+import { ClientLobbyManager } from "@tk-ch/simple-room-client";
 import { LobbyData } from "@tk-ch/simple-room-common";
 
 export default function Home() {
     const [username, setUsername] = useState("");
     const [connected, setConnected] = useState<boolean>(undefined);
-    const socketManager = useRef<ClientSocketManager | undefined>(undefined);
-    const [lobbyManager, setLobbyManager] = useState<LobbyData>({
+    const socketManager = useRef<ClientLobbyManager | undefined>(undefined);
+    const [lobbyData, setLobbyData] = useState<LobbyData>({
         users: [],
         host: 0,
     });
@@ -17,25 +17,20 @@ export default function Home() {
         socketManager.current?.connect({ username });
     }
 
-    function ready() {
-        socketManager.current.socket.emit("ready", true);
-    }
-
     function setupSocketManager() {
-        const newSocketManager = new ClientSocketManager({
+        const newSocketManager = new ClientLobbyManager({
             sessionStorage: localStorage,
-            updateConnectedState: (value) => setConnected(value),
+            updateConnectedState: setConnected,
+            updateLobbyState: setLobbyData,
         });
-
-        newSocketManager.socket.on(
-            "update-lobby",
-            (newLobbyManager: LobbyData) => {
-                setLobbyManager(newLobbyManager);
-            }
-        );
 
         socketManager.current = newSocketManager;
     }
+
+    useEffect(() => {
+        if (username == "" && localStorage.getItem("username"))
+            setUsername(localStorage.getItem("username"));
+    }, [username]);
 
     useEffect(() => {
         if (!socketManager.current) {
@@ -52,13 +47,16 @@ export default function Home() {
     }, []);
 
     const triedConnecting = !(connected === undefined);
-    const users = lobbyManager?.users.map((user) => {
+    const users = lobbyData?.users.map((user) => {
         return (
             <li key={user.name}>
                 {user.name} {user.ready ? "Ready!" : "Not ready..."}
             </li>
         );
     });
+    const userReady = lobbyData?.users.find(
+        (user) => user.name === username
+    )?.ready;
 
     return (
         <main>
@@ -76,7 +74,9 @@ export default function Home() {
                 <>
                     Connected!
                     <br />
-                    <button onClick={ready}>Ready!</button>
+                    <button onClick={socketManager.current.ready}>
+                        {userReady ? "Not ready" : "Ready"}
+                    </button>
                     {users}
                 </>
             )}

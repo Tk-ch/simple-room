@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 import { InMemorySessionStore, SessionStore } from "./sessionStore.js";
 
 export const randomId = () => randomBytes(8).toString("hex");
-interface UserSocket extends Socket {
+export interface UserSocket extends Socket {
     sessionID?: string;
     username?: string;
     userID?: string;
@@ -15,6 +15,7 @@ export class SocketManager {
     io: Server;
     emitter: EventEmitter = new EventEmitter();
     store: SessionStore;
+    test: string = "";
 
     constructor(
         sessionStore: SessionStore = new InMemorySessionStore(),
@@ -73,51 +74,12 @@ export class SocketManager {
 
             socket.join(socket.userID);
 
-            this.emitter.emit(SOCKET_EVENTS.connected, socket.handshake.auth);
-
-            this.io.emit("update-lobby", {
-                users: this.store
-                    .findAllSessions()
-                    .map((session) => session.user),
-                host: 0,
-            });
-
-            const actionListener = (action: string) => {
-                this.emitter.emit(SOCKET_EVENTS.action, socket.userID, action);
-            };
-
-            const readyListener = (isReady: boolean) => {
-                if (socket.sessionID) {
-                    const session = this.store.findSession(socket.sessionID);
-                    if (session) {
-                        session.user.ready = isReady;
-                        this.io.emit("update-lobby", {
-                            users: this.store
-                                .findAllSessions()
-                                .map((session) => session.user),
-                            host: 0,
-                        });
-                    }
-                }
-            };
-
-            socket.on("action", actionListener);
-            socket.on("ready", readyListener);
             socket.on("disconnect", () => {
                 if (socket.sessionID) {
                     const session = this.store.findSession(socket.sessionID);
                     if (session) session.connected = false;
                 }
-                this.emitter.emit(SOCKET_EVENTS.disconnected, socket.userID);
-                socket.off("action", actionListener);
-                socket.off("ready", readyListener);
             });
         });
     }
 }
-export const SOCKET_EVENTS = {
-    created: "user-created",
-    connected: "user-connected",
-    disconnected: "user-disconnected",
-    action: "user-action",
-};
