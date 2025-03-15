@@ -7,7 +7,13 @@
         "dev"
     ],
     "scripts": {
-        "build": "npm run build -w=packages/common && npm run build -w=packages/server && npm run build -w=packages/client",
+        "build": "npm run build -w=packages/common && npm run build -w=packages/client",
         "dev": "npm run build && npm run dev -w=dev"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    },
+    "dependencies": {
+        "tsx": "^4.19.3"
     }
 }

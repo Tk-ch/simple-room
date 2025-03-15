@@ -1,0 +1,5 @@
+{
+    "watch": ["../packages/server/src/"],
+    "ext": "ts,js,json",
+    "exec": "tsx ./src/server/socket.ts"
+}

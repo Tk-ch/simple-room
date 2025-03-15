@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    reactStrictMode: true,
+    transpilePackages: [
+        "@tk-ch/simple-room-common",
+        "@tk-ch/simple-room",
+        "@tk-ch/simple-room-client",
+    ],
 };
 export default nextConfig;

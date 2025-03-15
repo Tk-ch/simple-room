@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev:next": "next dev --turbopack",
-        "dev:socket": "tsc -p tsconfig-socket.json && node --inspect ./dist/socket.js",
+        "dev:socket": "nodemon",
         "dev": "concurrently npm:dev:*",
         "build": "next build",
         "start": "next start",

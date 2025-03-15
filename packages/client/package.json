@@ -2,7 +2,13 @@
     "name": "@tk-ch/simple-room-client",
     "version": "1.0.0",
     "main": "dist/clientSocketManager.js",
-    "types": "dist/clientSocketManager.d.ts",
+    "types": "src/clientSocketManager.ts",
+    "exports": {
+        ".": {
+            "import": "./src/clientSocketManager.ts",
+            "require": "./src/clientSocketManager.ts"
+        }
+    },
     "scripts": {
         "build": "tsc"
     },

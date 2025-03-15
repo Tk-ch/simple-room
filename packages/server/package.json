@@ -1,10 +1,13 @@
 {
     "name": "@tk-ch/simple-room",
     "version": "1.0.0",
-    "main": "dist/socketManager.js",
-    "types": "dist/socketManager.d.ts",
-    "scripts": {
-        "build": "tsc"
+    "main": "dist/index.js",
+    "types": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./src/index.ts",
+            "require": "./src/index.ts"
+        }
     },
     "dependencies": {
         "socket.io": "^4.8.1"

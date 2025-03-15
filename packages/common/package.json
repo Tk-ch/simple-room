@@ -1,8 +1,14 @@
 {
     "name": "@tk-ch/simple-room-common",
     "version": "1.0.0",
-    "main": "dist/models.js",
-    "types": "dist/models.d.ts",
+    "main": "dist/index.js",
+    "types": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./src/index.ts",
+            "require": "./src/index.ts"
+        }
+    },
     "scripts": {
         "build": "tsc"
     }

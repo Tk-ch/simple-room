@@ -17,7 +17,12 @@
             {
                 "name": "next"
             }
-        ]
+        ],
+        "paths": {
+            "@tk-ch/simple-room-client": ["../packages/client/src"],
+            "@tk-ch/simple-room": ["../packages/server/src"],
+            "@tk-ch/simple-room-common": ["../packages/common/src"]
+        }
     },
     "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
